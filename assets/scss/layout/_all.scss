@@ -1,0 +1,11 @@
+/*
+ * layout all
+ * layout：共通のコンテンツをscss化する。
+ */
+
+@import "footer";
+@import "header";
+@import "main";
+@import "sidebar";
+
+@import "partials/all";

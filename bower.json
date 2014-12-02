@@ -1,0 +1,7 @@
+{
+  "name": "demo",
+  "dependencies": {
+    "jquery": "1.11.1",
+    "backbone.marionette": "2.2.2"
+  }
+}

@@ -1,0 +1,20 @@
+{
+    "simulated-lag": 1000,
+    "cors": false,
+    "jsonp": false,
+    "proxy": {
+        "server": "http://yourrealapi.com",
+        "default": false,
+        "calls": {
+
+        }
+    },
+    "variables": {
+        "server": "http://server.com"
+    },
+    "routes": [
+        "/api/groups/:groupid",
+        "/api/groups/:groupid/show",
+        "/api/groups/:groupid/users/:userid"
+    ]
+}

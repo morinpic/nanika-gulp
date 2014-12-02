@@ -1,0 +1,14 @@
+/*
+ * common
+ * common：全ページ共通のcss。
+ */
+
+@charset "UTF-8";
+
+@import "compass";
+
+@import "var/settings";
+@import "base/all";
+@import "functions/all";
+@import "layout/all";
+@import "module/all";
