@@ -13,39 +13,39 @@ var path = {
 };
 
 gulp.task('connect', function() {
-	$.connect.server({
+  $.connect.server({
     port: '9000',
     livereload: true
   });
 });
 
 gulp.task('compass', function() {
-	return gulp.src(path.assets+'/scss/*.scss')
-		.pipe($.plumber())
-		.pipe($.rubySass({
-			style: 'expanded',
-			compass: true
-		}))
-		.pipe(gulp.dest(path.tmp+'/css'))
-		.pipe($.connect.reload());
+  return gulp.src(path.assets+'/scss/*.scss')
+    .pipe($.plumber())
+    .pipe($.rubySass({
+      style: 'expanded',
+      compass: true
+    }))
+    .pipe(gulp.dest(path.tmp+'/css'))
+    .pipe($.connect.reload());
 });
 
 gulp.task('browserify', function() {
-	return gulp.src(path.assets+'/js/*.js')
-		.pipe($.plumber())
-		.pipe(transform(function(filename){
+  return gulp.src(path.assets+'/js/*.js')
+    .pipe($.plumber())
+    .pipe(transform(function(filename){
       return browserify(filename).bundle();
     }))
-		.pipe(gulp.dest(path.tmp+'/js'))
-		.pipe($.connect.reload());
+    .pipe(gulp.dest(path.tmp+'/js'))
+    .pipe($.connect.reload());
 });
 
 gulp.task('uglify', function() {
-	return gulp.src(path.tmp+'/js/*.js')
-		.pipe($.uglify({
-			preserveComments: saveLicense
-		}))
-		.pipe(gulp.dest(path.build+'/js'));
+  return gulp.src(path.tmp+'/js/*.js')
+    .pipe($.uglify({
+      preserveComments: saveLicense
+    }))
+    .pipe(gulp.dest(path.build+'/js'));
 });
 
 gulp.task('clean:tmp', function() {
@@ -59,10 +59,10 @@ gulp.task('watch', ['connect'], function() {
 });
 
 gulp.task('server', function() {
-	console.log('call server');
-	runSequence(
-		'clean:tmp',
-		['compass', 'browserify'],
-		'watch'
-	);
+  console.log('call server');
+  runSequence(
+    'clean:tmp',
+    ['compass', 'browserify'],
+    'watch'
+  );
 });
