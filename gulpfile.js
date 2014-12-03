@@ -1,10 +1,10 @@
 var gulp        = require('gulp');
 var $           = require('gulp-load-plugins')();
 var browserify  = require('browserify');
-// var source     = require('vinyl-source-stream');
 var transform   = require('vinyl-transform');
 var runSequence = require('run-sequence');
 var saveLicense = require('uglify-save-license');
+var spritesmith = require('gulp.spritesmith');
 
 var path = {
   assets: 'assets',
@@ -30,6 +30,16 @@ gulp.task('compass', function() {
     .pipe($.connect.reload());
 });
 
+gulp.task('sprite', function() {
+  var spriteData = gulp.src(path.assets+'/img/sprites/*.png').pipe(spritesmith({
+    imgName: 'sprite.png',
+    cssName: '_sprite.scss',
+    imgPath: '../img/sprite.png'
+  }));
+  spriteData.img.pipe(gulp.dest(path.tmp+'/img'));
+  spriteData.css.pipe(gulp.dest(path.assets+'/scss/var'));
+});
+
 gulp.task('browserify', function() {
   return gulp.src(path.assets+'/js/*.js')
     .pipe($.plumber())
@@ -48,6 +58,14 @@ gulp.task('uglify', function() {
     .pipe(gulp.dest(path.build+'/js'));
 });
 
+gulp.task('copy:tmp', function() {
+  return gulp.src([
+      path.assets+'/**/*.!(scss|js|md)',
+      '!'+path.assets+'/img/sprites/**'
+    ])
+    .pipe(gulp.dest(path.tmp));
+});
+
 gulp.task('clean:tmp', function() {
   return gulp.src(path.tmp, {read: false})
     .pipe($.clean());
@@ -59,10 +77,10 @@ gulp.task('watch', ['connect'], function() {
 });
 
 gulp.task('server', function() {
-  console.log('call server');
   runSequence(
     'clean:tmp',
-    ['compass', 'browserify'],
+    'sprite',
+    ['copy:tmp','compass', 'browserify'],
     'watch'
   );
 });
