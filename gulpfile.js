@@ -5,19 +5,14 @@ var transform   = require('vinyl-transform');
 var runSequence = require('run-sequence');
 var saveLicense = require('uglify-save-license');
 var spritesmith = require('gulp.spritesmith');
+var browserSync = require('browser-sync');
+var reload      = browserSync.reload;
 
 var path = {
   assets: 'assets',
   tmp: '.tmp',
   build: 'build'
 };
-
-gulp.task('connect', function() {
-  $.connect.server({
-    port: '9000',
-    livereload: true
-  });
-});
 
 gulp.task('compass', function() {
   return gulp.src(path.assets+'/scss/*.scss')
@@ -27,7 +22,7 @@ gulp.task('compass', function() {
       compass: true
     }))
     .pipe(gulp.dest(path.tmp+'/css'))
-    .pipe($.connect.reload());
+    .pipe(reload({stream:true}));
 });
 
 gulp.task('sprite', function() {
@@ -47,7 +42,7 @@ gulp.task('browserify', function() {
       return browserify(filename).bundle();
     }))
     .pipe(gulp.dest(path.tmp+'/js'))
-    .pipe($.connect.reload());
+    .pipe(reload({stream:true}));
 });
 
 gulp.task('uglify', function() {
@@ -71,9 +66,17 @@ gulp.task('clean:tmp', function() {
     .pipe($.clean());
 });
 
-gulp.task('watch', ['connect'], function() {
+gulp.task('watch', ['browser-sync'], function() {
   gulp.watch(path.assets+'/js/*js', ['browserify']);
   gulp.watch(path.assets+'/scss/*scss', ['compass']);
+});
+
+gulp.task('browser-sync', function() {
+  browserSync({
+    server: {
+      baseDir: path.tmp
+    }
+  });
 });
 
 gulp.task('server', function() {
