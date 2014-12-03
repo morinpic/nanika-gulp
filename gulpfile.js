@@ -48,6 +48,14 @@ gulp.task('uglify', function() {
     .pipe(gulp.dest(path.build+'/js'));
 });
 
+gulp.task('copy:tmp', function() {
+  return gulp.src([
+      path.assets+'/**/*.!(scss|js|md)',
+      '!'+path.assets+'/img/sprites/**'
+    ])
+    .pipe(gulp.dest(path.tmp));
+});
+
 gulp.task('clean:tmp', function() {
   return gulp.src(path.tmp, {read: false})
     .pipe($.clean());
@@ -62,6 +70,7 @@ gulp.task('server', function() {
   console.log('call server');
   runSequence(
     'clean:tmp',
+    'clean:copy',
     ['compass', 'browserify'],
     'watch'
   );
