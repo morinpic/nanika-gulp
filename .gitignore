@@ -11,3 +11,4 @@ access_logs.db
 _sprite.scss
 .bundle
 vendor
+npm-debug.log
