@@ -19,7 +19,8 @@ gulp.task('compass', function() {
     .pipe($.plumber())
     .pipe($.rubySass({
       style: 'expanded',
-      compass: true
+      compass: true,
+      bundleExec: true
     }))
     .pipe(gulp.dest(path.tmp+'/css'))
     .pipe(reload({stream:true}));
