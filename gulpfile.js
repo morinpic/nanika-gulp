@@ -45,6 +45,12 @@ gulp.task('browserify', function() {
     .pipe(reload({stream:true}));
 });
 
+gulp.task('jshint', function() {
+  return gulp.src(path.assets+'/js/**/*.js')
+    .pipe($.jshint())
+    .pipe($.jshint.reporter('jshint-stylish'));
+});
+
 gulp.task('uglify', function() {
   return gulp.src(path.tmp+'/js/*.js')
     .pipe($.uglify({
