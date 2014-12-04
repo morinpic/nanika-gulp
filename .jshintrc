@@ -1,0 +1,36 @@
+{
+    "maxerr": 1000,
+
+    "maxparams": 5,
+    "maxdepth": 3,
+    "maxstatements": 30,
+    "maxcomplexity": 10,
+    "maxlen": 1000,
+
+    "globals": {
+      "APP": false,
+      "alert": false
+    },
+    "browser": true,
+    "node": true,
+
+    "bitwise": true,
+    "curly": true,
+    "eqeqeq": true,
+    "es3": true,
+    "forin": true,
+    "freeze": true,
+    "immed": false,
+    "latedef": "nofunc",
+    "newcap": true,
+    "noarg": true,
+    "noempty": true,
+    "nonbsp": true,
+    "plusplus": false,
+    "quotmark": "single",
+    "undef": true,
+    "unused": true,
+    "strict": false,
+
+    "expr": true
+}
