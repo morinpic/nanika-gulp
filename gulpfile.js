@@ -25,15 +25,16 @@ gulp.task('stylus', function() {
     .pipe(reload({stream:true}));
 });
 
-// gulp.task('sprite', function() {
-//   var spriteData = gulp.src(path.assets+'/img/sprites/*.png').pipe(spritesmith({
-//     imgName: 'sprite.png',
-//     cssName: '_sprite.scss',
-//     imgPath: '../img/sprite.png'
-//   }));
-//   spriteData.img.pipe(gulp.dest(path.tmp+'/img'));
-//   spriteData.css.pipe(gulp.dest(path.assets+'/scss/var'));
-// });
+gulp.task('sprite', function() {
+  var spriteData = gulp.src(path.assets+'/img/sprites/*.png').pipe(spritesmith({
+    imgName: 'sprite.png',
+    cssName: '_sprite.styl',
+    imgPath: '../img/sprite.png',
+    cssFormat: 'stylus'
+  }));
+  spriteData.img.pipe(gulp.dest(path.tmp+'/img'));
+  spriteData.css.pipe(gulp.dest(path.assets+'/stylus/var'));
+});
 
 gulp.task('browserify', function() {
   return gulp.src(path.assets+'/js/*.js')
@@ -88,7 +89,7 @@ gulp.task('browser-sync', function() {
 gulp.task('server', function() {
   runSequence(
     'clean:tmp',
-    // 'sprite',
+    'sprite',
     ['copy:tmp','stylus', 'browserify'],
     'watch'
   );
