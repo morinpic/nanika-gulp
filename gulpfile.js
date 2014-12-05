@@ -1,5 +1,6 @@
 var gulp        = require('gulp');
 var $           = require('gulp-load-plugins')();
+var nib         = require('nib');
 var browserify  = require('browserify');
 var transform   = require('vinyl-transform');
 var runSequence = require('run-sequence');
@@ -14,27 +15,36 @@ var path = {
   build: 'build'
 };
 
-gulp.task('compass', function() {
-  return gulp.src(path.assets+'/scss/*.scss')
-    .pipe($.plumber())
-    .pipe($.rubySass({
-      style: 'expanded',
-      compass: true,
-      bundleExec: true
+gulp.task('stylus', function() {
+  return gulp.src(path.assets+'/stylus/*.styl')
+    .pipe($.stylus({
+      use: nib()
     }))
     .pipe(gulp.dest(path.tmp+'/css'))
     .pipe(reload({stream:true}));
 });
 
-gulp.task('sprite', function() {
-  var spriteData = gulp.src(path.assets+'/img/sprites/*.png').pipe(spritesmith({
-    imgName: 'sprite.png',
-    cssName: '_sprite.scss',
-    imgPath: '../img/sprite.png'
-  }));
-  spriteData.img.pipe(gulp.dest(path.tmp+'/img'));
-  spriteData.css.pipe(gulp.dest(path.assets+'/scss/var'));
-});
+// gulp.task('compass', function() {
+//   return gulp.src(path.assets+'/scss/*.scss')
+//     .pipe($.plumber())
+//     .pipe($.rubySass({
+//       style: 'expanded',
+//       compass: true,
+//       bundleExec: true
+//     }))
+//     .pipe(gulp.dest(path.tmp+'/css'))
+//     .pipe(reload({stream:true}));
+// });
+
+// gulp.task('sprite', function() {
+//   var spriteData = gulp.src(path.assets+'/img/sprites/*.png').pipe(spritesmith({
+//     imgName: 'sprite.png',
+//     cssName: '_sprite.scss',
+//     imgPath: '../img/sprite.png'
+//   }));
+//   spriteData.img.pipe(gulp.dest(path.tmp+'/img'));
+//   spriteData.css.pipe(gulp.dest(path.assets+'/scss/var'));
+// });
 
 gulp.task('browserify', function() {
   return gulp.src(path.assets+'/js/*.js')
@@ -75,7 +85,7 @@ gulp.task('clean:tmp', function() {
 
 gulp.task('watch', ['browser-sync'], function() {
   gulp.watch(path.assets+'/js/*js', ['browserify']);
-  gulp.watch(path.assets+'/scss/*scss', ['compass']);
+  gulp.watch(path.assets+'/stylus/*styl', ['stylus']);
 });
 
 gulp.task('browser-sync', function() {
@@ -89,8 +99,8 @@ gulp.task('browser-sync', function() {
 gulp.task('server', function() {
   runSequence(
     'clean:tmp',
-    'sprite',
-    ['copy:tmp','compass', 'browserify'],
+    // 'sprite',
+    ['copy:tmp','stylus', 'browserify'],
     'watch'
   );
 });
