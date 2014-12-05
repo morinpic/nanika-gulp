@@ -1,5 +1,5 @@
 var $ = require('jquery');
 
-module.exports = (function(){
+module.exports = function(){
   $('body').append('aaa');
-})();
+};

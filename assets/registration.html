@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>mock</title>
+  <link href="/css/common.css" media="all" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+
+<h1 id="testId">Mock loading....</h1>
+<i class="modIcon modIconGithub"></i>
+
+<section class="lySectionLv2 is-userId" id="js-setIdSection">
+	<div class="inputTitleWrap">
+		<h2 class="titleText">ID</h2>
+		<span class="label is-must">必須</span>
+		<span class="limitText">※IDは登録後変更できません。</span>
+		<span id="welcomeUserIdInputResult" class="inputLimitSize"></span>
+	</div>
+	<p class="inputText is-must">
+		<input id="welcomeUserIdInput" type="text" placeholder="IDを入力　例）abcd1234" value="">
+	</p>
+	<ul class="clauseList">
+		<li>半角英数字と「_（アンダースコア）」「-（ハイフン）」「~（チルダ）」「．（ピリオド）」が使えます。</li>
+	</ul>
+	<div id="welcomeInfoBox" class="infoBox hide">
+		<ul class="infoBoxList">
+			<li class="infoBoxListItem">
+				<p class="title">あなたのユーザーID</p>
+				<p class="idText js-idText"></p>
+			</li>
+		</ul>
+	</div>
+</section>
+<section class="lySectionLv2 is-userName">
+	<div class="inputTitleWrap">
+		<h2 class="titleText">名前</h2>
+		<span class="label is-must">必須</span>
+		<span id="welcomeUserNameInputResult" class="inputLimitSize">16文字まで</span>
+	</div>
+	<p class="inputText is-must">
+		<input id="welcomeUserNameInput" type="text" placeholder="名前を入力　例）あいうえお1234" value="">
+	</p>
+</section>
+<section class="lySectionLv2 is-otherSetting">
+	<div class="js-accordionTarget accordionTarget">
+		<div class="lySettingDetailProfile">
+			<div class="lyDescription">
+				<section class="lySectionLv2">
+					<div class="inputTitleWrap">
+						<h2 class="titleText">自己紹介文</h2>
+						<span id="welcomeUserDescriptionResult" class="inputLimitSize">150文字まで</span>
+					</div>
+					<div class="textarea">
+						<textarea id="welcomeUserDescriptionInput" placeholder="自己紹介文を入力" value=""></textarea>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script src="/js/common.js"></script>
+<script src="/js/registration.js"></script>
+
+</body>
+</html>

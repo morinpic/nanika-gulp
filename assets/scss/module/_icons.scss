@@ -2,4 +2,23 @@
  * icons
  */
 
-.modIcon {}
+ @import "../var/sprite";
+
+ @mixin createSprite($sprite){
+  $sprite-offset-x: nth($sprite, 3);
+  $sprite-offset-y: nth($sprite, 4);
+  $sprite-image: nth($sprite, 9);
+
+  background-position: round($sprite-offset-x)  round($sprite-offset-y);
+  width: round(nth($sprite, 5));
+  height: round(nth($sprite, 6));
+}
+
+.modIcon {
+  @include sprite-image($iconGithub);
+  @include inline-block;
+}
+
+.modIconGithub {
+  @include createSprite($iconGithub);
+}

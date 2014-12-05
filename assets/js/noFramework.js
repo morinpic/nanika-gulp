@@ -1,1 +1,3 @@
-var index = require('./noFramework/index');
+var noFramework = require('./noFramework/index');
+
+noFramework();
