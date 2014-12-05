@@ -3,6 +3,7 @@ gulp-demo
 
 ## Usage
 
+Installing packages and dependencies
 ```
-npm install && bower install && bundle install --path vendor/bundle
+npm install && bower install
 ```
