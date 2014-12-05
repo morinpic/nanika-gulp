@@ -81,7 +81,7 @@ gulp.task('watch', ['browser-sync'], function() {
 });
 
 gulp.task('browser-sync', function() {
-  var url = require('url'),
+  var url = require('url');
   var proxyOptions = url.parse('http://localhost:8080/api');
   proxyOptions.route = '/api';
 
