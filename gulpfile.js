@@ -17,24 +17,13 @@ var path = {
 
 gulp.task('stylus', function() {
   return gulp.src(path.assets+'/stylus/*.styl')
+    .pipe($.plumber())
     .pipe($.stylus({
       use: nib()
     }))
     .pipe(gulp.dest(path.tmp+'/css'))
     .pipe(reload({stream:true}));
 });
-
-// gulp.task('compass', function() {
-//   return gulp.src(path.assets+'/scss/*.scss')
-//     .pipe($.plumber())
-//     .pipe($.rubySass({
-//       style: 'expanded',
-//       compass: true,
-//       bundleExec: true
-//     }))
-//     .pipe(gulp.dest(path.tmp+'/css'))
-//     .pipe(reload({stream:true}));
-// });
 
 // gulp.task('sprite', function() {
 //   var spriteData = gulp.src(path.assets+'/img/sprites/*.png').pipe(spritesmith({
