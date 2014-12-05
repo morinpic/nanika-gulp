@@ -6,6 +6,8 @@ var runSequence = require('run-sequence');
 var saveLicense = require('uglify-save-license');
 var spritesmith = require('gulp.spritesmith');
 var browserSync = require('browser-sync');
+var url         = require('url');
+var proxy       = require('proxy-middleware');
 var reload      = browserSync.reload;
 
 var path = {
@@ -79,12 +81,26 @@ gulp.task('watch', ['browser-sync'], function() {
 });
 
 gulp.task('browser-sync', function() {
+  var url = require('url');
+  var proxyOptions = url.parse('http://localhost:8080/api');
+  proxyOptions.route = '/api';
+
   browserSync({
+    port: 3000,
     server: {
-      baseDir: path.tmp
+      baseDir: path.tmp,
+      middleware: [proxy(proxyOptions)]
     }
   });
 });
+
+/*
+gulp.task('mock-server', function() {
+  browserSync({
+    proxy: 'localhost:8080/easymock'
+  });
+});
+*/
 
 gulp.task('server', function() {
   runSequence(

@@ -16,7 +16,9 @@
     "jshint-stylish": "^1.0.0",
     "run-sequence": "^1.0.2",
     "uglify-save-license": "^0.4.1",
-    "vinyl-transform": "^1.0.0"
+    "vinyl-transform": "^1.0.0",
+    "proxy-middleware": "~0.8.0",
+    "url": "~0.10.1"
   },
   "browserify": {
     "transform": [
