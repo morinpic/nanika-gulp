@@ -1,5 +1,6 @@
 var gulp        = require('gulp');
 var $           = require('gulp-load-plugins')();
+var nib         = require('nib');
 var browserify  = require('browserify');
 var transform   = require('vinyl-transform');
 var runSequence = require('run-sequence');
@@ -16,13 +17,11 @@ var path = {
   build: 'build'
 };
 
-gulp.task('compass', function() {
-  return gulp.src(path.assets+'/scss/*.scss')
+gulp.task('stylus', function() {
+  return gulp.src(path.assets+'/stylus/*.styl')
     .pipe($.plumber())
-    .pipe($.rubySass({
-      style: 'expanded',
-      compass: true,
-      bundleExec: true
+    .pipe($.stylus({
+      use: nib()
     }))
     .pipe(gulp.dest(path.tmp+'/css'))
     .pipe(reload({stream:true}));
@@ -31,11 +30,12 @@ gulp.task('compass', function() {
 gulp.task('sprite', function() {
   var spriteData = gulp.src(path.assets+'/img/sprites/*.png').pipe(spritesmith({
     imgName: 'sprite.png',
-    cssName: '_sprite.scss',
-    imgPath: '../img/sprite.png'
+    cssName: '_sprite.styl',
+    imgPath: '../img/sprite.png',
+    cssFormat: 'stylus'
   }));
   spriteData.img.pipe(gulp.dest(path.tmp+'/img'));
-  spriteData.css.pipe(gulp.dest(path.assets+'/scss/var'));
+  spriteData.css.pipe(gulp.dest(path.assets+'/stylus/var'));
 });
 
 gulp.task('browserify', function() {
@@ -77,7 +77,7 @@ gulp.task('clean:tmp', function() {
 
 gulp.task('watch', ['browser-sync'], function() {
   gulp.watch(path.assets+'/js/*js', ['browserify']);
-  gulp.watch(path.assets+'/scss/*scss', ['compass']);
+  gulp.watch(path.assets+'/stylus/*styl', ['stylus']);
 });
 
 gulp.task('browser-sync', function() {
@@ -106,7 +106,7 @@ gulp.task('server', function() {
   runSequence(
     'clean:tmp',
     'sprite',
-    ['copy:tmp','compass', 'browserify'],
+    ['copy:tmp','stylus', 'browserify'],
     'watch'
   );
 });

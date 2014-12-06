@@ -8,7 +8,7 @@ bower_components
 access_logs.db
 .sass-cache
 .tmp
-_sprite.scss
+_sprite.styl
 .bundle
 vendor
 npm-debug.log
