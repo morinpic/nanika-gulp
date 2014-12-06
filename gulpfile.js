@@ -8,7 +8,6 @@ var runSequence = require('run-sequence');
 var saveLicense = require('uglify-save-license');
 var spritesmith = require('gulp.spritesmith');
 var browserSync = require('browser-sync');
-var url         = require('url');
 var proxy       = require('proxy-middleware');
 var reload      = browserSync.reload;
 
