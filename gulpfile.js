@@ -23,6 +23,7 @@ gulp.task('stylus', function() {
     .pipe($.stylus({
       use: nib()
     }))
+    .pipe($.pleeease())
     .pipe(gulp.dest(path.tmp+'/css'))
     .pipe(reload({stream:true}));
 });
