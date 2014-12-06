@@ -2,23 +2,16 @@
  * icons
  */
 
- @import "../var/sprite";
+ @import "../var/_sprite";
 
- @mixin createSprite($sprite){
-  $sprite-offset-x: nth($sprite, 3);
-  $sprite-offset-y: nth($sprite, 4);
-  $sprite-image: nth($sprite, 9);
+ createSprite($sprite)
+  background-position: $sprite_offset_x $sprite_offset_y
+  width: $sprite_width
+  height: $sprite_height
 
-  background-position: round($sprite-offset-x)  round($sprite-offset-y);
-  width: round(nth($sprite, 5));
-  height: round(nth($sprite, 6));
-}
+.modIcon
+  sprite-image($iconGithub)
+  display: inline-block;
 
-.modIcon {
-  @include sprite-image($iconGithub);
-  @include inline-block;
-}
-
-.modIconGithub {
-  @include createSprite($iconGithub);
-}
+.modIconGithub
+  createSprite($iconGithub)
