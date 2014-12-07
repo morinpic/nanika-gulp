@@ -3,11 +3,11 @@ var $           = require('gulp-load-plugins')();
 var nib         = require('nib');
 var browserify  = require('browserify');
 var transform   = require('vinyl-transform');
+var merge       = require('merge-stream');
 var runSequence = require('run-sequence');
 var saveLicense = require('uglify-save-license');
 var spritesmith = require('gulp.spritesmith');
 var browserSync = require('browser-sync');
-var url         = require('url');
 var proxy       = require('proxy-middleware');
 var reload      = browserSync.reload;
 
@@ -23,6 +23,7 @@ gulp.task('stylus', function() {
     .pipe($.stylus({
       use: nib()
     }))
+    .pipe($.pleeease())
     .pipe(gulp.dest(path.tmp+'/css'))
     .pipe(reload({stream:true}));
 });
@@ -34,8 +35,10 @@ gulp.task('sprite', function() {
     imgPath: '../img/sprite.png',
     cssFormat: 'stylus'
   }));
-  spriteData.img.pipe(gulp.dest(path.tmp+'/img'));
-  spriteData.css.pipe(gulp.dest(path.assets+'/stylus/var'));
+  return merge(
+    spriteData.img.pipe(gulp.dest(path.tmp+'/img')),
+    spriteData.css.pipe(gulp.dest(path.assets+'/stylus/var'))
+  );
 });
 
 gulp.task('browserify', function() {
@@ -64,7 +67,7 @@ gulp.task('uglify', function() {
 
 gulp.task('copy:tmp', function() {
   return gulp.src([
-      path.assets+'/**/*.!(scss|js|md)',
+      path.assets+'/**/*.!(styl|js|md)',
       '!'+path.assets+'/img/sprites/**'
     ])
     .pipe(gulp.dest(path.tmp));
