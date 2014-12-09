@@ -42,13 +42,32 @@ gulp.task('sprite', function() {
 });
 
 gulp.task('browserify', function() {
-  return gulp.src(path.assets+'/js/*.js')
+  return merge(
+    gulp.src(path.assets+'/js/common.js')
     .pipe($.plumber())
     .pipe(transform(function(filename){
-      return browserify(filename).bundle();
+      return browserify(filename)
+        .require('backbone', {expose: 'backbone'})
+        .require('underscore', {expose: 'underscore'})
+        .require('jquery', {expose: 'jquery'})
+        .bundle();
+    })),
+
+    gulp.src([
+      path.assets+'/js/*.js',
+      '!'+path.assets+'/js/common.js'
+    ])
+    .pipe($.plumber())
+    .pipe(transform(function(filename){
+      return browserify(filename)
+        .external('backbone')
+        .external('underscore')
+        .external('jquery')
+        .bundle();
     }))
-    .pipe(gulp.dest(path.tmp+'/js'))
-    .pipe(reload({stream:true}));
+  )
+  .pipe(gulp.dest(path.tmp+'/js'))
+  .pipe(reload({stream:true}));
 });
 
 gulp.task('jshint', function() {
