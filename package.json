@@ -1,9 +1,10 @@
 {
-  "name": "gulp-browserify",
+  "name": "nanika-gulp",
   "scripts": {},
   "devDependencies": {
     "browser-sync": "^1.7.2",
     "browserify": "^6.3.3",
+    "browserify-shim": "^3.8.1",
     "debowerify": "^1.1.1",
     "gulp": "^3.8.10",
     "gulp-clean": "^0.3.1",
@@ -25,7 +26,21 @@
   },
   "browserify": {
     "transform": [
-      "debowerify"
+      "browserify-shim"
     ]
+  },
+  "browser": {
+    "jquery": "./bower_components/jquery/dist/jquery.js",
+    "underscore": "./bower_components/underscore/underscore.js",
+    "backbone": "./bower_components/backbone/backbone.js",
+    "backbone.marionette": "./bower_components/backbone.marionette/lib/backbone.marionette.js"
+  },
+  "browserify-shim": {
+    "backbone": {
+      "depends": [
+        "underscore: underscore",
+        "jquery: jquery"
+      ]
+    }
   }
 }
