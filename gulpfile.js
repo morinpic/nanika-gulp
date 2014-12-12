@@ -98,8 +98,12 @@ gulp.task('clean:tmp', function() {
 });
 
 gulp.task('watch', ['browser-sync'], function() {
-  gulp.watch(path.assets+'/js/*js', ['browserify']);
-  gulp.watch(path.assets+'/stylus/*styl', ['stylus']);
+  $.watch(path.assets+'/js/*js', function() {
+    gulp.run('browserify');
+  });
+  $.watch(path.assets+'/stylus/*styl', function() {
+    gulp.run('stylus');
+  });
 });
 
 gulp.task('browser-sync', function() {
