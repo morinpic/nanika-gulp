@@ -19,7 +19,7 @@ var path = {
 
 gulp.task('stylus', function() {
   return gulp.src(path.assets+'/stylus/*.styl')
-    .pipe($.plumber())
+    .pipe($.plumber({errorHandler: $.notify.onError('<%= error.message %>')}))
     .pipe($.stylus({
       use: nib()
     }))
@@ -44,27 +44,27 @@ gulp.task('sprite', function() {
 gulp.task('browserify', function() {
   return merge(
     gulp.src(path.assets+'/js/common.js')
-    .pipe($.plumber())
-    .pipe(transform(function(filename){
-      return browserify(filename)
-        .require('backbone', {expose: 'backbone'})
-        .require('underscore', {expose: 'underscore'})
-        .require('jquery', {expose: 'jquery'})
-        .bundle();
-    })),
+      .pipe($.plumber({errorHandler: $.notify.onError('<%= error.message %>')}))
+      .pipe(transform(function(filename){
+        return browserify(filename)
+          .require('backbone', {expose: 'backbone'})
+          .require('underscore', {expose: 'underscore'})
+          .require('jquery', {expose: 'jquery'})
+          .bundle();
+        })),
 
     gulp.src([
       path.assets+'/js/*.js',
       '!'+path.assets+'/js/common.js'
     ])
-    .pipe($.plumber())
-    .pipe(transform(function(filename){
-      return browserify(filename)
-        .external('backbone')
-        .external('underscore')
-        .external('jquery')
-        .bundle();
-    }))
+      .pipe($.plumber({errorHandler: $.notify.onError('<%= error.message %>')}))
+      .pipe(transform(function(filename){
+        return browserify(filename)
+          .external('backbone')
+          .external('underscore')
+          .external('jquery')
+          .bundle();
+        }))
   )
   .pipe(gulp.dest(path.tmp+'/js'))
   .pipe(reload({stream:true}));
@@ -98,8 +98,8 @@ gulp.task('clean:tmp', function() {
 });
 
 gulp.task('watch', ['browser-sync'], function() {
-  gulp.watch(path.assets+'/js/*js', ['browserify']);
-  gulp.watch(path.assets+'/stylus/*styl', ['stylus']);
+  gulp.watch(path.assets+'/js/**/*.js', ['browserify']);
+  gulp.watch(path.assets+'/stylus/**/*.styl', ['stylus']);
 });
 
 gulp.task('browser-sync', function() {
