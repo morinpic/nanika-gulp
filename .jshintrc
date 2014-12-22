@@ -9,7 +9,10 @@
 
     "globals": {
       "APP": false,
-      "alert": false
+      "alert": false,
+      "describe": false,
+      "it": false,
+      "expect": false
     },
     "browser": true,
     "node": true,
