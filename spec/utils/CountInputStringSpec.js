@@ -17,6 +17,6 @@ describe('CountInputStringSpec', function () {
 
     expect(countInputString.setLimitedStringStatus(nullText)).toEqual(false);
     expect(countInputString.setLimitedStringStatus(hasText)).toEqual('あと5文字');
-    expect(countInputString.setLimitedStringStatus(overText)).toEqual('あと<span class="limitText">-1</span>文字');
+    expect(countInputString.setLimitedStringStatus(overText)).toEqual('あと<span class="limitText"></span>文字');
   });
 });
