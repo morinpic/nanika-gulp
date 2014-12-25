@@ -20,8 +20,6 @@ function CountInputString(args){
     2: 'あと',
     3: '文字'
   };
-
-  this.init();
 }
 
 var proto = CountInputString.prototype;
