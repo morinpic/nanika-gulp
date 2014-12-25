@@ -7,7 +7,7 @@ gulp-demo
 
 Installing packages and dependencies
 ```
-npm install && bower install
+npm install
 ```
 
 easymock
