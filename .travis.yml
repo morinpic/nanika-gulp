@@ -3,5 +3,4 @@ node_js:
   - "0.10"
 script:
   - node -v
-  - echo test1
-  - echo test2
+  - npm test

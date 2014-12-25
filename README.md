@@ -1,7 +1,7 @@
 gulp-demo
 ==========
 
-[![Build Status](https://travis-ci.org/morinpic/nanika-gulp.svg)](https://travis-ci.org/morinpic/nanika-gulp)
+[![Build Status](https://travis-ci.org/morinpic/nanika-gulp.svg?branch=master)](https://travis-ci.org/morinpic/nanika-gulp)
 
 ## Usage
 
