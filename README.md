@@ -1,6 +1,8 @@
 gulp-demo
 ==========
 
+[![Build Status](https://travis-ci.org/morinpic/nanika-gulp.svg)](https://travis-ci.org/morinpic/nanika-gulp)
+
 ## Usage
 
 Installing packages and dependencies
